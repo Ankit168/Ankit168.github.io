@@ -2,3 +2,5 @@ flask
 Flask-SQLAlchemy
 flask-restful
 newspaper3k
+scikit-learn
+stop-words
