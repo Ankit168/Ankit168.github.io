@@ -4,8 +4,12 @@ from model import db,ArticleModel
 from flask_restful import Resource, Api
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///articleClassifier.sqlite3"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///articleHistory.sqlite3"
 db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+    
 api = Api(app)
 app.app_context().push()
 

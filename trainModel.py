@@ -19,6 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB,MultinomialNB,BernoulliNB
 
+# This is to preprocess the scraped text for better prediction.
 def preprocessing(data):
     data['Text'] = data['Text'].apply(remove_tags)
     data['Text'] = data['Text'].apply(special_char)
@@ -54,7 +55,8 @@ def lemmatize_word(text):
     return " ".join([wordnet.lemmatize(word) for word in text])
 
 def train_model():
-    print('in train model')
+    
+    # We have used this as training data to train our model from Kaggle
     data = pd.read_csv('./BBC News Train.csv')
     #print(data.head())
 
@@ -79,6 +81,8 @@ def train_model():
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 0, shuffle = True)
 
+    # After running on multiple models(in Google Collab) and comparing their F1-values, 
+    # RandomForestClassifier turns out to be the best, so it is being used here.
     model_random_forest = RandomForestClassifier(n_estimators=100 ,criterion='entropy' , random_state=0)
 
     oneVsRest = OneVsRestClassifier(model_random_forest)
